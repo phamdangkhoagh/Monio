@@ -1,8 +1,8 @@
-using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Monio.Domain.Entities;
 using System.Reflection;
 
-namespace Infrastructure.Persistence;
+namespace Monio.Infrastructure.Persistence;
 
 public class AppDbContext : DbContext
 {

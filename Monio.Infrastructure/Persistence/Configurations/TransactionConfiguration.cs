@@ -1,16 +1,14 @@
-using Domain.Entities;
+using Monio.Domain.Entities;                                 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Persistence.Configurations;
+namespace Monio.Infrastructure.Persistence.Configurations;
 
 public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
 {
     public void Configure(EntityTypeBuilder<Transaction> builder)
     {
-        builder.ToTable("Transactions",
-            t => t.HasCheckConstraint("CK_Transactions_Amount", "[Amount] > 0")
-                  .HasCheckConstraint("CK_Transactions_ExchangeRate", "[ExchangeRate] > 0"));
+        builder.ToTable("Transactions");
 
         builder.HasKey(t => t.Id);
         builder.Property(t => t.Id).HasDefaultValueSql("NEWSEQUENTIALID()");
@@ -28,7 +26,7 @@ public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
         builder.HasOne(t => t.User)
             .WithMany(u => u.Transactions)
             .HasForeignKey(t => t.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(t => t.Wallet)
             .WithMany(w => w.Transactions)

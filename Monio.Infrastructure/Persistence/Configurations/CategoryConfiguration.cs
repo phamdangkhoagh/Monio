@@ -1,8 +1,8 @@
-using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Monio.Domain.Entities;
 
-namespace Infrastructure.Persistence.Configurations;
+namespace Monio.Infrastructure.Persistence.Configurations;
 
 public class CategoryConfiguration : IEntityTypeConfiguration<Category>
 {
@@ -30,7 +30,7 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
         builder.HasOne(c => c.User)
             .WithMany(u => u.Categories)
             .HasForeignKey(c => c.UserId)
-            .OnDelete(DeleteBehavior.Cascade)
+            .OnDelete(DeleteBehavior.Restrict)
             .IsRequired(false);
 
         builder.HasIndex(c => new { c.UserId, c.Type });

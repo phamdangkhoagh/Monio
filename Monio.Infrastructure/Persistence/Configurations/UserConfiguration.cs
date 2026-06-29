@@ -1,8 +1,8 @@
-using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Monio.Domain.Entities;
 
-namespace Infrastructure.Persistence.Configurations;
+namespace Monio.Infrastructure.Persistence.Configurations;
 
 public class UserConfiguration : IEntityTypeConfiguration<User>
 {

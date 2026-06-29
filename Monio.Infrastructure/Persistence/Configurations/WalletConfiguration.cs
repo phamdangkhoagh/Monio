@@ -1,8 +1,8 @@
-using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Monio.Domain.Entities;
 
-namespace Infrastructure.Persistence.Configurations;
+namespace Monio.Infrastructure.Persistence.Configurations;
 
 public class WalletConfiguration : IEntityTypeConfiguration<Wallet>
 {
@@ -23,7 +23,7 @@ public class WalletConfiguration : IEntityTypeConfiguration<Wallet>
         builder.HasOne(w => w.User)
             .WithMany(u => u.Wallets)
             .HasForeignKey(w => w.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasIndex(w => w.UserId);
     }

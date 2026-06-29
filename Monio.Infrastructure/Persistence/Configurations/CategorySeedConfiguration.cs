@@ -1,9 +1,9 @@
-using Domain.Entities;
-using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Monio.Domain.Entities;
+using Monio.Domain.Enums;
 
-namespace Infrastructure.Persistence.Configurations;
+namespace Monio.Infrastructure.Persistence.Configurations;
 
 /// <summary>
 /// Seed các danh mục mặc định của hệ thống (UserId = null, IsSystem = true)

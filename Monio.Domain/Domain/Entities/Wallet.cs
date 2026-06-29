@@ -1,6 +1,6 @@
-using Domain.Enums;
+using Monio.Domain.Enums;
 
-namespace Domain.Entities;
+namespace Monio.Domain.Entities;
 
 public class Wallet
 {
