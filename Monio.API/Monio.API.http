@@ -1,0 +1,6 @@
+@Monio.API_HostAddress = http://localhost:5029
+
+GET {{Monio.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
