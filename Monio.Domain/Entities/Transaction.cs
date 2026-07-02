@@ -1,5 +1,3 @@
-using Monio.Domain.Enums;
-
 namespace Monio.Domain.Entities;
 
 public class Transaction
@@ -17,6 +15,7 @@ public class Transaction
     public string? ImageUrl { get; set; }
     public DateOnly TransactionDate { get; set; }
     public DateTime CreatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
 
     // Navigation
     public User User { get; set; } = default!;

@@ -19,7 +19,7 @@ public class WalletConfiguration : IEntityTypeConfiguration<Wallet>
         builder.Property(w => w.Currency).IsRequired().HasMaxLength(3).HasDefaultValue("VND");
         builder.Property(w => w.IsActive).HasDefaultValue(true);
         builder.Property(w => w.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
-
+        builder.Property(x => x.Balance).HasPrecision(18, 2);
         builder.HasOne(w => w.User)
             .WithMany(u => u.Wallets)
             .HasForeignKey(w => w.UserId)

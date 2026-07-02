@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Monio.Domain.Entities;
-using Monio.Domain.Enums;
 
 namespace Monio.Infrastructure.Persistence.Configurations;
 

@@ -1,4 +1,4 @@
-namespace Monio.Domain.Enums;
+namespace Monio.Domain.Entities;
 
 public enum TransactionType
 {

@@ -1,5 +1,3 @@
-using Monio.Domain.Enums;
-
 namespace Monio.Domain.Entities;
 
 public class Category

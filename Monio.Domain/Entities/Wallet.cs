@@ -1,5 +1,3 @@
-using Monio.Domain.Enums;
-
 namespace Monio.Domain.Entities;
 
 public class Wallet
@@ -8,6 +6,7 @@ public class Wallet
     public Guid UserId { get; set; }
     public string Name { get; set; } = default!;
     public WalletType Type { get; set; }
+    public decimal Balance { get; set; }
     public string Currency { get; set; } = "VND";
     public bool IsActive { get; set; } = true;
     public DateTime CreatedAt { get; set; }
