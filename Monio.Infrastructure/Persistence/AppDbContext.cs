@@ -4,9 +4,9 @@ using System.Reflection;
 
 namespace Monio.Infrastructure.Persistence;
 
-public class AppDbContext : DbContext
+public class MonioDbContext : DbContext
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+    public MonioDbContext(DbContextOptions<MonioDbContext> options) : base(options) { }
 
     public DbSet<User> Users => Set<User>();
     public DbSet<Wallet> Wallets => Set<Wallet>();

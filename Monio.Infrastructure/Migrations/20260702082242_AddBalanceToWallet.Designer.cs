@@ -11,7 +11,7 @@ using Monio.Infrastructure.Persistence;
 
 namespace Monio.Infrastructure.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(MonioDbContext))]
     [Migration("20260702082242_AddBalanceToWallet")]
     partial class AddBalanceToWallet
     {

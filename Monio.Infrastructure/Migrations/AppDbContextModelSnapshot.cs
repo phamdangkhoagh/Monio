@@ -10,7 +10,7 @@ using Monio.Infrastructure.Persistence;
 
 namespace Monio.Infrastructure.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(MonioDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

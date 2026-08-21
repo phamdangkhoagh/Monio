@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Monio.Infrastructure.Persistence;
+using Monio.Infrastructure;
+using Monio.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,12 +12,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<AppDbContext>(options =>
+
+
+builder.Services.AddDbContext<MonioDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"),
         b => b.MigrationsAssembly("Monio.Infrastructure")
     )
 );
+
+builder.Services.AddInfrastructure();
+builder.Services.AddApplication();
 
 var app = builder.Build();
 

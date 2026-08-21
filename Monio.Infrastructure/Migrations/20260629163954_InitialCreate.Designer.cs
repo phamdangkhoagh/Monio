@@ -11,7 +11,7 @@ using Monio.Infrastructure.Persistence;
 
 namespace Monio.Infrastructure.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(MonioDbContext))]
     [Migration("20260629163954_InitialCreate")]
     partial class InitialCreate
     {
