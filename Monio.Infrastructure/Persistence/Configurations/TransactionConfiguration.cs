@@ -11,7 +11,7 @@ public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
         builder.ToTable("Transactions");
 
         builder.HasKey(t => t.Id);
-        builder.Property(t => t.Id).HasDefaultValueSql("NEWSEQUENTIALID()");
+        builder.Property(t => t.Id).HasDefaultValueSql("gen_random_uuid()");
 
         builder.Property(t => t.Amount).IsRequired().HasPrecision(18, 2);
         builder.Property(t => t.Currency).IsRequired().HasMaxLength(3).HasDefaultValue("VND");
@@ -21,7 +21,7 @@ public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
         builder.Property(t => t.Note).HasMaxLength(500);
         builder.Property(t => t.ImageUrl).HasMaxLength(500);
         builder.Property(t => t.TransactionDate).IsRequired();
-        builder.Property(t => t.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
+        builder.Property(t => t.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
         builder.HasOne(t => t.User)
             .WithMany(u => u.Transactions)

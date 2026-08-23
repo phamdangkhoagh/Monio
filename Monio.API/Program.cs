@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddDbContext<MonioDbContext>(options =>
-    options.UseSqlServer(
+    options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
         b => b.MigrationsAssembly("Monio.Infrastructure")
     )

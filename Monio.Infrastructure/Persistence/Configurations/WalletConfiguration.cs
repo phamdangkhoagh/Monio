@@ -11,14 +11,14 @@ public class WalletConfiguration : IEntityTypeConfiguration<Wallet>
         builder.ToTable("Wallets");
 
         builder.HasKey(w => w.Id);
-        builder.Property(w => w.Id).HasDefaultValueSql("NEWSEQUENTIALID()");
+        builder.Property(w => w.Id).HasDefaultValueSql("gen_random_uuid()");
 
         builder.Property(w => w.Name).IsRequired().HasMaxLength(100);
         builder.Property(w => w.Type).IsRequired()
             .HasConversion<string>().HasMaxLength(20);
         builder.Property(w => w.Currency).IsRequired().HasMaxLength(3).HasDefaultValue("VND");
         builder.Property(w => w.IsActive).HasDefaultValue(true);
-        builder.Property(w => w.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
+        builder.Property(w => w.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
         builder.Property(x => x.Balance).HasPrecision(18, 2);
         builder.HasOne(w => w.User)
             .WithMany(u => u.Wallets)

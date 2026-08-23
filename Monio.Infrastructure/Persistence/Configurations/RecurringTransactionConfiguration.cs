@@ -9,10 +9,10 @@ public class RecurringTransactionConfiguration : IEntityTypeConfiguration<Recurr
     public void Configure(EntityTypeBuilder<RecurringTransaction> builder)
     {
         builder.ToTable("RecurringTransactions",
-            t => t.HasCheckConstraint("CK_RecurringTransactions_Amount", "[Amount] > 0"));
+            t => t.HasCheckConstraint("CK_RecurringTransactions_Amount", "\"Amount\" > 0"));
 
         builder.HasKey(r => r.Id);
-        builder.Property(r => r.Id).HasDefaultValueSql("NEWSEQUENTIALID()");
+        builder.Property(r => r.Id).HasDefaultValueSql("gen_random_uuid()");
 
         builder.Property(r => r.Amount).IsRequired().HasPrecision(18, 2);
         builder.Property(r => r.Currency).IsRequired().HasMaxLength(3).HasDefaultValue("VND");
@@ -41,6 +41,6 @@ public class RecurringTransactionConfiguration : IEntityTypeConfiguration<Recurr
 
         // Partial index: cron job chỉ scan các recurring đang active
         builder.HasIndex(r => r.NextRunDate)
-            .HasFilter("[IsActive] = 1");
+            .HasFilter("\"IsActive\" = true");
     }
 }

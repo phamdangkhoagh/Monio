@@ -11,7 +11,7 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
         builder.ToTable("Categories");
 
         builder.HasKey(c => c.Id);
-        builder.Property(c => c.Id).HasDefaultValueSql("NEWSEQUENTIALID()");
+        builder.Property(c => c.Id).HasDefaultValueSql("gen_random_uuid()");
 
         builder.Property(c => c.Name).IsRequired().HasMaxLength(100);
         builder.Property(c => c.Icon).HasMaxLength(50);

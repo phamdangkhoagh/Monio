@@ -9,10 +9,10 @@ public class BudgetConfiguration : IEntityTypeConfiguration<Budget>
     public void Configure(EntityTypeBuilder<Budget> builder)
     {
         builder.ToTable("Budgets",
-            t => t.HasCheckConstraint("CK_Budgets_Amount", "[Amount] > 0"));
+            t => t.HasCheckConstraint("CK_Budgets_Amount", "\"Amount\" > 0"));
 
         builder.HasKey(b => b.Id);
-        builder.Property(b => b.Id).HasDefaultValueSql("NEWSEQUENTIALID()");
+        builder.Property(b => b.Id).HasDefaultValueSql("gen_random_uuid()");
 
         builder.Property(b => b.Amount).IsRequired().HasPrecision(18, 2);
         builder.Property(b => b.Currency).IsRequired().HasMaxLength(3).HasDefaultValue("VND");
