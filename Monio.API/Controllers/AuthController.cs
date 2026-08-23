@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Monio.Application.Features.Users.Login;
 using Monio.Application.Features.Users.Register;
 
 namespace Monio.API.Controllers
@@ -21,6 +22,15 @@ namespace Monio.API.Controllers
             CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(command, cancellationToken);
+
+            return Ok(result);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(
+            LoginCommand command)
+        {
+            var result = await _mediator.Send(command);
 
             return Ok(result);
         }

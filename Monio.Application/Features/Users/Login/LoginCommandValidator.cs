@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monio.Application.Features.Users.Register
+namespace Monio.Application.Features.Users.Login
 {
-    public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
+    public class LoginCommandValidator : AbstractValidator<LoginCommand>
     {
-        public RegisterCommandValidator()
+        public LoginCommandValidator()
         {
             RuleFor(q => q.Email)
                 .NotEmpty()
@@ -24,18 +24,6 @@ namespace Monio.Application.Features.Users.Register
                 .WithMessage("Mật khẩu không được để trống.")
                 .MinimumLength(8)
                 .WithMessage("Mật khẩu phải có ít nhất 8 ký tự.");
-
-            RuleFor(q => q.ConfirmPassword)
-                .NotEmpty()
-                .WithMessage("Vui lòng nhập lại mật khẩu.")
-                .Equal(q => q.Password)
-                .WithMessage("Mật khẩu xác nhận không khớp.");
-
-            RuleFor(q => q.FullName)
-                .NotEmpty()
-                .WithMessage("Họ tên không được để trống.")
-                .MaximumLength(100)
-                .WithMessage("Họ tên không được vượt quá 100 ký tự.");
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monio.Application.Features.Users.Register
+namespace Monio.Application.Features.Users.Login
 {
     public class AuthResponse
     {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Monio.Application.Interfaces;
 using Monio.Application.Interfaces.Persistence;
 using Monio.Application.Interfaces.Services;
 using Monio.Infrastructure.Persistence.Repositories;
@@ -13,6 +14,7 @@ namespace Monio.Infrastructure
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
             return services;
         }
