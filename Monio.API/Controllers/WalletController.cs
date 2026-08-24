@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Monio.Application.Features.Wallets.CreateWallet;
 using Monio.Application.Features.Wallets.GetWallets;
 using Monio.Application.Interfaces.Services;
 
@@ -22,6 +23,15 @@ namespace Monio.API.Controllers
         public async Task<IActionResult> GetWallets (CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetWalletsQuery(), cancellationToken);
+
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpPost("")]
+        public async Task<IActionResult> Create([FromBody] CreateWalletCommand command, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(command, cancellationToken);
 
             return Ok(result);
         }

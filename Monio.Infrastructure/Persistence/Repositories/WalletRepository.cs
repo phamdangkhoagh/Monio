@@ -18,6 +18,12 @@ namespace Monio.Infrastructure.Persistence.Repositories
             _monioDbContext = monioDbContext;
         }
 
+        public async Task AddAsync(Wallet wallet)
+        {
+            await _monioDbContext.Wallets.AddAsync(wallet);
+            await _monioDbContext.SaveChangesAsync();
+        }
+
         public async Task<List<Wallet>> GetByUserIdAsync(Guid userId)
         {
             return await _monioDbContext.Wallets

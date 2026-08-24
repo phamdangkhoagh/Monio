@@ -10,5 +10,6 @@ namespace Monio.Application.Interfaces.Persistence
     public interface IWalletRepository
     {
         Task<List<Wallet>> GetByUserIdAsync(Guid userId);
+        Task AddAsync(Wallet wallet);
     }
 }
