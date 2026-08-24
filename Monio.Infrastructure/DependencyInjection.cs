@@ -15,7 +15,7 @@ namespace Monio.Infrastructure
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
-
+            services.AddScoped<IWalletRepository, WalletRepository>();
 
             return services;
         }

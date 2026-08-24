@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Features\Categories\" />
-    <Folder Include="Features\Wallets\" />
     <Folder Include="Features\Transactions\CreateExpense\" />
     <Folder Include="Common\" />
     <Folder Include="Features\Transactions\DeleteExpense\" />
