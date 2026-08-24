@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Monio.Application.Features.Users.Register;
-using Monio.Application.Interfaces;
 using Monio.Application.Interfaces.Persistence;
 using Monio.Application.Interfaces.Services;
 using System;

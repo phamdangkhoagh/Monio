@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monio.Application.Interfaces
+namespace Monio.Application.Interfaces.Services
 {
     public interface IJwtTokenGenerator
     {

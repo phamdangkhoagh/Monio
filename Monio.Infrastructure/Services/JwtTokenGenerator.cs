@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Monio.Application.Interfaces;
+using Monio.Application.Interfaces.Services;
 using Monio.Domain.Entities;
 
 namespace Monio.Infrastructure.Services;

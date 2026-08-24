@@ -1,10 +1,10 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Monio.Application.Features.Users.Login;
 using Monio.Application.Features.Users.Register;
-using Microsoft.AspNetCore.Authorization;
+using Monio.Application.Interfaces.Services;
 using System.Security.Claims;
-
 namespace Monio.API.Controllers
 {
     [ApiController]
@@ -12,10 +12,15 @@ namespace Monio.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly ICurrentUserService _currentUserService;
 
-        public AuthController (IMediator mediator)
+
+        public AuthController (
+            IMediator mediator,
+            ICurrentUserService currentUserService)
         {
             _mediator = mediator;
+            _currentUserService = currentUserService;
         }
 
         [HttpPost("register")]
@@ -41,8 +46,8 @@ namespace Monio.API.Controllers
         [HttpGet("me")]
         public IActionResult Me()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var email = User.FindFirstValue(ClaimTypes.Email);
+            var userId = _currentUserService.UserId;
+            var email = _currentUserService.Email;
 
             return Ok(new
             {
