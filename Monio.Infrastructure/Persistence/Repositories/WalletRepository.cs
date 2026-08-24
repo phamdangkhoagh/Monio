@@ -24,6 +24,12 @@ namespace Monio.Infrastructure.Persistence.Repositories
             await _monioDbContext.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(Wallet wallet)
+        {
+            _monioDbContext.Wallets.Remove(wallet);
+            await _monioDbContext.SaveChangesAsync();
+        }
+
         public async Task<Wallet?> GetByIdAndUserIdAsync(Guid id, Guid userId)
         {
             return await _monioDbContext.Wallets

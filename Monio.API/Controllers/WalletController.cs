@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Monio.Application.Features.Wallets.CreateWallet;
+using Monio.Application.Features.Wallets.DeleteWallet;
 using Monio.Application.Features.Wallets.GetWallets;
 using Monio.Application.Features.Wallets.UpdateWallet;
 using Monio.Application.Interfaces.Services;
@@ -49,6 +50,20 @@ namespace Monio.API.Controllers
             var result = await _mediator.Send(command,cancellationToken);
             
             return Ok(result);
+        }
+
+        [Authorize]
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> Delete(
+            Guid id,
+            CancellationToken cancellationToken)
+        {
+            await _mediator.Send(new DeleteWalletCommand
+            {
+                Id = id
+            }, cancellationToken);
+
+            return NoContent(); 
         }
     }
 }

@@ -13,5 +13,6 @@ namespace Monio.Application.Interfaces.Persistence
         Task AddAsync(Wallet wallet);
         Task<Wallet?> GetByIdAndUserIdAsync(Guid id, Guid userId);
         Task UpdateAsync(Wallet wallet);
+        Task DeleteAsync(Wallet wallet);
     }
 }
