@@ -24,11 +24,25 @@ namespace Monio.Infrastructure.Persistence.Repositories
             await _monioDbContext.SaveChangesAsync();
         }
 
+        public async Task<Wallet?> GetByIdAndUserIdAsync(Guid id, Guid userId)
+        {
+            return await _monioDbContext.Wallets
+                .FirstOrDefaultAsync(w =>
+                    w.Id == id &&
+                    w.UserId == userId);
+        }
+
         public async Task<List<Wallet>> GetByUserIdAsync(Guid userId)
         {
             return await _monioDbContext.Wallets
                 .Where(w => w.UserId == userId)
                 .ToListAsync();
+        }
+
+        public async Task UpdateAsync(Wallet wallet)
+        {
+            _monioDbContext.Wallets.Update(wallet);
+            await _monioDbContext.SaveChangesAsync();
         }
     }
 }
