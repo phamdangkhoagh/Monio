@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Monio.Application.Features.Users.Login;
 using Monio.Application.Features.Users.Register;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Monio.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/auth")]
     public class AuthController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -33,6 +35,20 @@ namespace Monio.API.Controllers
             var result = await _mediator.Send(command);
 
             return Ok(result);
+        }
+
+        [Authorize]
+        [HttpGet("me")]
+        public IActionResult Me()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var email = User.FindFirstValue(ClaimTypes.Email);
+
+            return Ok(new
+            {
+                UserId = userId,
+                Email = email
+            });
         }
     }
 }
