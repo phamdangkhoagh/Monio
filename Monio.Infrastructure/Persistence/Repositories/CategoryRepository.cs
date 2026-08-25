@@ -24,6 +24,12 @@ namespace Monio.Infrastructure.Persistence.Repositories
             await _monioDbContext.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(Category category)
+        {
+            _monioDbContext.Categories.Remove(category);
+            await _monioDbContext.SaveChangesAsync();
+        }
+
         public async Task<Category?> GetByIdAndUserIdAsync(Guid id, Guid userId)
         {
             return await _monioDbContext.Categories

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Monio.Application.Features.Categories.CreateCategory;
+using Monio.Application.Features.Categories.DeleteCategory;
 using Monio.Application.Features.Categories.GetCategories;
 using Monio.Application.Features.Categories.UpdateCategory;
 
@@ -49,6 +50,21 @@ namespace Monio.API.Controllers
             var result = await _mediator.Send(command, cancellationToken);
 
             return Ok(result);
+        }
+
+        [Authorize]
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> Delete(
+            Guid id,
+            CancellationToken cancellationToken)
+        {
+            await _mediator.Send(
+                new DeleteCategoryCommand
+                {
+                    Id = id
+                }, cancellationToken);
+
+            return NoContent();
         }
     }
 }
