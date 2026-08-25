@@ -39,6 +39,14 @@ namespace Monio.Infrastructure.Persistence.Repositories
                     !c.IsSystem);
         }
 
+        public async Task<Category?> GetForTransactionAsync(Guid categoryId, Guid userId)
+        {
+           return await _monioDbContext.Categories
+                .FirstOrDefaultAsync(c => 
+                   c.Id == categoryId &&
+                   (c.IsSystem || c.UserId == userId));
+        }
+
         public async Task<List<Category>> GetForUserAsync(Guid userId)
         {
             return await _monioDbContext.Categories

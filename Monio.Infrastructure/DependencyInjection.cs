@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Monio.Application.Interfaces.Persistence;
 using Monio.Application.Interfaces.Services;
+using Monio.Infrastructure.Persistence;
 using Monio.Infrastructure.Persistence.Repositories;
 using Monio.Infrastructure.Services;
 
@@ -17,6 +18,8 @@ namespace Monio.Infrastructure
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddScoped<IWalletRepository, WalletRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

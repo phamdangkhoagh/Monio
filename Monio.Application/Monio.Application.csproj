@@ -5,12 +5,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Transactions\CreateExpense\" />
     <Folder Include="Common\" />
-    <Folder Include="Features\Transactions\DeleteExpense\" />
-    <Folder Include="Features\Transactions\GetTransaction\" />
-    <Folder Include="Features\Transactions\GetTransactions\" />
-    <Folder Include="Features\Transactions\UpdateExpense\" />
   </ItemGroup>
 
   <ItemGroup>

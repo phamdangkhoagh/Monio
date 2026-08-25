@@ -10,8 +10,9 @@ namespace Monio.Application.Interfaces.Persistence
     public interface ICategoryRepository
     {
         Task<List<Category>> GetForUserAsync(Guid userId);
-        Task AddAsync(Category category);
         Task<Category?> GetByIdAndUserIdAsync(Guid id, Guid userId);
+        Task<Category?> GetForTransactionAsync(Guid categoryId, Guid userId);
+        Task AddAsync(Category category);
         Task UpdateAsync(Category category);
         Task DeleteAsync(Category category);
     }
