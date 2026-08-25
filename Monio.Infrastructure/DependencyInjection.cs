@@ -16,6 +16,7 @@ namespace Monio.Infrastructure
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddScoped<IWalletRepository, WalletRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             return services;
         }
