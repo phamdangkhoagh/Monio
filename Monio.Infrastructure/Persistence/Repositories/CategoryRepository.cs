@@ -18,6 +18,12 @@ namespace Monio.Infrastructure.Persistence.Repositories
             _monioDbContext = monioDbContext;
         }
 
+        public async Task AddAsync(Category category)
+        {
+            await _monioDbContext.Categories.AddAsync(category);
+            await _monioDbContext.SaveChangesAsync();
+        }
+
         public async Task<List<Category>> GetForUserAsync(Guid userId)
         {
             return await _monioDbContext.Categories
