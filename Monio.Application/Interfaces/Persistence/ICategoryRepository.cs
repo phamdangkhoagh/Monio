@@ -11,5 +11,7 @@ namespace Monio.Application.Interfaces.Persistence
     {
         Task<List<Category>> GetForUserAsync(Guid userId);
         Task AddAsync(Category category);
+        Task<Category?> GetByIdAndUserIdAsync(Guid id, Guid userId);
+        Task UpdateAsync(Category category);
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Monio.Application.Features.Categories.CreateCategory;
 using Monio.Application.Features.Categories.GetCategories;
+using Monio.Application.Features.Categories.UpdateCategory;
 
 namespace Monio.API.Controllers
 {
@@ -31,6 +32,20 @@ namespace Monio.API.Controllers
             [FromBody] CreateCategoryCommand command,
             CancellationToken cancellationToken)
         {
+            var result = await _mediator.Send(command, cancellationToken);
+
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> Update(
+            Guid id,
+            UpdateCategoryCommand command,
+            CancellationToken cancellationToken)
+        {
+            command.Id = id;
+
             var result = await _mediator.Send(command, cancellationToken);
 
             return Ok(result);

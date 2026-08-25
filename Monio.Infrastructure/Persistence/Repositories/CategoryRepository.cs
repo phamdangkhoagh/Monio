@@ -24,11 +24,26 @@ namespace Monio.Infrastructure.Persistence.Repositories
             await _monioDbContext.SaveChangesAsync();
         }
 
+        public async Task<Category?> GetByIdAndUserIdAsync(Guid id, Guid userId)
+        {
+            return await _monioDbContext.Categories
+                .FirstOrDefaultAsync(c =>
+                    c.Id == id &&
+                    c.UserId == userId &&
+                    !c.IsSystem);
+        }
+
         public async Task<List<Category>> GetForUserAsync(Guid userId)
         {
             return await _monioDbContext.Categories
                 .Where(c => c.IsSystem || c.UserId == userId)
                 .ToListAsync();
+        }
+
+        public async Task UpdateAsync(Category category)
+        {
+            _monioDbContext.Categories.Update(category);
+            await _monioDbContext.SaveChangesAsync();
         }
     }
 }
