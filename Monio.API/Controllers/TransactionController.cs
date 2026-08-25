@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Monio.Application.Features.Transactions.CreateTransaction;
+using Monio.Application.Features.Transactions.GetTransactions;
 
 namespace Monio.API.Controllers
 {
@@ -13,6 +14,17 @@ namespace Monio.API.Controllers
         public TransactionController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [Authorize]
+        [HttpGet("")]
+        public async Task<IActionResult> Get(
+            [FromQuery] GetTransactionsQuery query,
+            CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(query, cancellationToken);
+
+            return Ok(result);
         }
 
         [Authorize]

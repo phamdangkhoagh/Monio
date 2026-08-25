@@ -10,5 +10,14 @@ namespace Monio.Infrastructure.Persistence.Repositories
     public interface ITransactionRepository
     {
         Task AddAsync(Transaction transaction);
+        Task<List<Transaction>> GetForUserAsync(
+            Guid userId,
+            Guid? walletId,
+            Guid? categoryId,
+            TransactionType? type,
+            DateOnly? fromDate,
+            DateOnly? toDate,
+            int page,
+            int pageSize);
     }
 }

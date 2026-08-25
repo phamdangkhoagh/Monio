@@ -1,5 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using FluentValidation;
+﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
+using Monio.Application.Common.Behaviors;
 
 namespace Monio.Application
 {
@@ -9,10 +10,13 @@ namespace Monio.Application
             this IServiceCollection services)
         {
             services.AddMediatR(cfg =>
-
+            {
                 cfg.RegisterServicesFromAssembly(
-                    typeof(DependencyInjection).Assembly)
-            );
+                    typeof(DependencyInjection).Assembly);
+
+                cfg.AddOpenBehavior(
+                    typeof(ValidationBehavior<,>));
+            });
 
             services.AddValidatorsFromAssembly(
                 typeof(DependencyInjection).Assembly);
