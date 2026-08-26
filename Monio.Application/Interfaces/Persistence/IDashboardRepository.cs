@@ -13,5 +13,9 @@ namespace Monio.Application.Interfaces.Persistence
             Guid userId,
             DateOnly? fromDate,
             DateOnly? toDate);
+        Task<List<ExpenseByCategoryResponse>> GetExpenseByCategoryAsync(
+            Guid userId,
+            DateOnly? fromDate,
+            DateOnly? toDate);
     }
 }

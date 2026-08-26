@@ -20,6 +20,44 @@ namespace Monio.Infrastructure.Persistence.Repositories
             _connectionFactory = connectionFactory;
         }
 
+        public async Task<List<ExpenseByCategoryResponse>> GetExpenseByCategoryAsync(Guid userId, DateOnly? fromDate, DateOnly? toDate)
+        {
+            const string sql = """
+                SELECT
+                    c."Id" AS "CategoryId",
+                    c."Name" AS "CategoryName",
+                    COALESCE(SUM(t."Amount"),0) AS "TotalAmount"
+                FROM "Transactions" t
+                INNER JOIN "Categories" c
+                    ON t."CategoryId" = c."Id"
+                WHERE t."UserId" = @UserId
+                    AND t."Type" = 'Expense'
+                    AND (
+                        CAST(@FromDate AS date) IS NULL
+                        OR t."TransactionDate" >= CAST(@FromDate AS date)
+                    )
+                    AND (
+                        CAST(@ToDate AS date) IS NULL
+                        OR t."TransactionDate" <= CAST(@ToDate AS date)
+                    )
+                GROUP BY c."Id", c."Name"
+                ORDER BY "TotalAmount" DESC;
+                """;
+
+            using var connection = _connectionFactory.CreateConnection();
+
+            var result = await connection.QueryAsync<ExpenseByCategoryResponse>( 
+                sql,
+                new
+                {
+                    UserId = userId,
+                    FromDate = fromDate?.ToDateTime(TimeOnly.MinValue),
+                    ToDate = toDate?.ToDateTime(TimeOnly.MinValue)
+                });
+
+            return result.ToList();
+        }
+
         public async Task<DashboardSummaryResponse> GetSummaryAsync(Guid userId, DateOnly? fromDate, DateOnly? toDate)
         {
             const string sql = """

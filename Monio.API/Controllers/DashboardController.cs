@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Monio.Application.Features.Dashboard.GetDashboardSummary;
+using Monio.Application.Features.Dashboard.GetExpenseByCategory;
 
 namespace Monio.API.Controllers
 {
@@ -20,6 +21,17 @@ namespace Monio.API.Controllers
         [HttpGet("summary")]
         public async Task<IActionResult> GetSummary(
             [FromQuery] GetDashboardSummaryQuery query,
+            CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(query, cancellationToken);
+
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpGet("expense-by-category")]
+        public async Task<IActionResult> GetExpenseByCategory(
+            [FromQuery] GetExpenseByCategoryQuery query,
             CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(query, cancellationToken);
