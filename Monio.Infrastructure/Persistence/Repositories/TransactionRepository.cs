@@ -22,6 +22,12 @@ namespace Monio.Infrastructure.Persistence.Repositories
             await _monioDbContext.Transactions.AddAsync(transaction);
         }
 
+        public async Task<Transaction?> GetByIdForUserAsync(Guid transactionId, Guid userId)
+        {
+            return await _monioDbContext.Transactions
+                .FirstOrDefaultAsync(q => q.Id == transactionId && q.UserId == userId);
+        }
+
         public async Task<List<Transaction>> GetForUserAsync(
             Guid userId, 
             Guid? walletId,

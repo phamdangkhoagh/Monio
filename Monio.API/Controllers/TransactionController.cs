@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Monio.Application.Features.Transactions.CreateTransaction;
+using Monio.Application.Features.Transactions.GetTransactionById;
 using Monio.Application.Features.Transactions.GetTransactions;
 
 namespace Monio.API.Controllers
@@ -22,6 +23,21 @@ namespace Monio.API.Controllers
             [FromQuery] GetTransactionsQuery query,
             CancellationToken cancellationToken)
         {
+            var result = await _mediator.Send(query, cancellationToken);
+
+            return Ok(result);
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetById(
+            Guid id,
+            CancellationToken cancellationToken)
+        {
+            var query = new GetTransactionByIdQuery
+            {
+                Id = id
+            };
+
             var result = await _mediator.Send(query, cancellationToken);
 
             return Ok(result);
