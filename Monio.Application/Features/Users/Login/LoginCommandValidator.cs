@@ -21,9 +21,9 @@ namespace Monio.Application.Features.Users.Login
 
             RuleFor(q => q.Password)
                 .NotEmpty()
-                .WithMessage("Mật khẩu không được để trống.")
-                .MinimumLength(8)
-                .WithMessage("Mật khẩu phải có ít nhất 8 ký tự.");
+                .WithMessage("Mật khẩu không được để trống.");
+                //.MinimumLength(8)
+                //.WithMessage("Mật khẩu phải có ít nhất 8 ký tự.");
         }
     }
 }
