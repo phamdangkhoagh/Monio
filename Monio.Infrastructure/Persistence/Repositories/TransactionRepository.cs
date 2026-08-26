@@ -22,6 +22,12 @@ namespace Monio.Infrastructure.Persistence.Repositories
             await _monioDbContext.Transactions.AddAsync(transaction);
         }
 
+        public  Task DeleteAsync(Transaction transaction)
+        {
+            _monioDbContext.Transactions.Remove(transaction);
+            return Task.CompletedTask;
+        }
+
         public async Task<Transaction?> GetByIdForUserAsync(Guid transactionId, Guid userId)
         {
             return await _monioDbContext.Transactions

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Monio.Application.Features.Transactions.CreateTransaction;
+using Monio.Application.Features.Transactions.DeleteTransaction;
 using Monio.Application.Features.Transactions.GetTransactionById;
 using Monio.Application.Features.Transactions.GetTransactions;
 using Monio.Application.Features.Transactions.UpdateTransaction;
@@ -64,6 +65,21 @@ namespace Monio.API.Controllers
             var result = await _mediator.Send(command, cancellationToken);
 
             return Ok(result);
+        }
+
+        [Authorize]
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> Delete(
+            Guid id,
+            CancellationToken cancellationToken)
+        {
+            await _mediator.Send(
+                new DeleteTransactionCommand
+                {
+                    Id = id
+                }, cancellationToken);
+
+            return NoContent();
         }
     }
 }

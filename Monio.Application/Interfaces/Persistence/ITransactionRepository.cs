@@ -19,7 +19,7 @@ namespace Monio.Infrastructure.Persistence.Repositories
             DateOnly? toDate,
             int page,
             int pageSize);
-
         Task<Transaction?> GetByIdForUserAsync(Guid transactionId, Guid userId);
+        Task DeleteAsync(Transaction transaction);
     }
 }
