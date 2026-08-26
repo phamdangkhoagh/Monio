@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Monio.Application.Features.Transactions.CreateTransaction;
 using Monio.Application.Features.Transactions.GetTransactionById;
 using Monio.Application.Features.Transactions.GetTransactions;
+using Monio.Application.Features.Transactions.UpdateTransaction;
 
 namespace Monio.API.Controllers
 {
@@ -54,5 +55,15 @@ namespace Monio.API.Controllers
             return Ok(result);
         }
 
+        [Authorize]
+        [HttpPut("")]
+        public async Task<IActionResult> Update(
+            UpdateTransactionCommand command,
+            CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(command, cancellationToken);
+
+            return Ok(result);
+        }
     }
 }

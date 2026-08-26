@@ -22,6 +22,7 @@ public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
         builder.Property(t => t.ImageUrl).HasMaxLength(500);
         builder.Property(t => t.TransactionDate).IsRequired();
         builder.Property(t => t.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+        builder.Property(t => t.UpdatedAt);
 
         builder.HasOne(t => t.User)
             .WithMany(u => u.Transactions)
