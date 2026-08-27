@@ -15,13 +15,16 @@ namespace Monio.Application.Features.Categories.CreateCategory
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly ICurrentUserService _currentUserService;
+        private readonly ICacheService _cacheService;
 
         public CreateCategoryCommandHandler(
             ICategoryRepository categoryRepository,
-            ICurrentUserService currentUserService)
+            ICurrentUserService currentUserService,
+            ICacheService cacheService)
         {
             _categoryRepository = categoryRepository;
             _currentUserService = currentUserService;
+            _cacheService = cacheService;
         }
 
         public async Task<CategoryResponse> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
@@ -39,6 +42,8 @@ namespace Monio.Application.Features.Categories.CreateCategory
             };
 
             await _categoryRepository.AddAsync(category);
+
+            await _cacheService.RemoveAsync($"categories:{category.UserId}");
 
             return new CategoryResponse
             {

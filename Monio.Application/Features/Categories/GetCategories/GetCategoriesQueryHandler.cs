@@ -13,23 +13,35 @@ namespace Monio.Application.Features.Categories.GetCategories
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly ICurrentUserService _currentUserService;
+        private readonly ICacheService _cacheService;
 
         public GetCategoriesQueryHandler(
             ICategoryRepository categoryRepository,
-            ICurrentUserService currentUserService)
+            ICurrentUserService currentUserService,
+            ICacheService cacheService)
         {
             _categoryRepository = categoryRepository;
             _currentUserService = currentUserService;
+            _cacheService = cacheService;
         }
 
         public async Task<List<CategoryResponse>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
         {
             var userId = _currentUserService.UserId;
 
+            var cacheKey = $"categories:{userId}";
+
+            var cachedCategories = await _cacheService.GetAsync<List<CategoryResponse>>(cacheKey);
+
+            if (cachedCategories != null) 
+            {
+                return cachedCategories;
+            }
+
             var categories = await _categoryRepository
                 .GetForUserAsync(userId);
 
-            return categories.Select(category => new CategoryResponse
+            var result = categories.Select(category => new CategoryResponse
             {
                 Id = category.Id,
                 Name = category.Name,
@@ -39,6 +51,10 @@ namespace Monio.Application.Features.Categories.GetCategories
                 IsSystem = category.IsSystem,
                 ParentId = category.ParentId
             }).ToList();
+
+            await _cacheService.SetAsync(cacheKey, result, TimeSpan.FromMinutes(10));
+
+            return result;
         }
     }
 }
