@@ -14,13 +14,16 @@ namespace Monio.Application.Features.Categories.UpdateCategory
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly ICurrentUserService _currentUserService;
+        private readonly ICacheService _cacheService;
 
         public UpdateCategoryCommandHandler(
             ICategoryRepository categoryRepository,
-            ICurrentUserService currentUserService)
+            ICurrentUserService currentUserService,
+            ICacheService cacheService)
         {
             _categoryRepository = categoryRepository;
             _currentUserService = currentUserService;
+            _cacheService = cacheService;
         }
 
         public async Task<CategoryResponse> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
@@ -42,6 +45,8 @@ namespace Monio.Application.Features.Categories.UpdateCategory
             category.ParentId = request.ParentId;
 
             await _categoryRepository.UpdateAsync(category);
+
+            await _cacheService.RemoveAsync($"categories:{category.UserId}");
 
             return new CategoryResponse
             {
