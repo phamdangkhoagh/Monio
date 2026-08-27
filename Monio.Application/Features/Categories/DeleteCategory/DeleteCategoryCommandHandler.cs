@@ -13,13 +13,16 @@ namespace Monio.Application.Features.Categories.DeleteCategory
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly ICurrentUserService _currentUserService;
+        private readonly ICacheService _cacheService;
 
         public DeleteCategoryCommandHandler(
             ICategoryRepository categoryRepository,
-            ICurrentUserService currentUserService)
+            ICurrentUserService currentUserService,
+            ICacheService cacheService)
         {
             _categoryRepository = categoryRepository;
             _currentUserService = currentUserService;
+            _cacheService = cacheService;
         }
 
         public async Task Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
@@ -35,6 +38,8 @@ namespace Monio.Application.Features.Categories.DeleteCategory
             }
 
             await _categoryRepository.DeleteAsync(category);
+
+            await _cacheService.RemoveAsync($"categories:{category.UserId}");
         }
     }
 }
