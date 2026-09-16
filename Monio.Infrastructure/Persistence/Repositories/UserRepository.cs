@@ -28,10 +28,10 @@ namespace Monio.Infrastructure.Persistence.Repositories
             );
         }
 
-        public async Task<User?> GetByEmailAsync(string email)
+        public async Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken)
         {
             return await _monioDbContext.Users.FirstOrDefaultAsync(
-                q => q.Email == email
+                q => q.Email == email, cancellationToken
             );
         }
     }
