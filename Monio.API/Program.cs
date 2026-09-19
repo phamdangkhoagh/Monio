@@ -4,8 +4,10 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using Monio.Application;
 using Monio.Application.Common.Exceptions;
+using Monio.Application.Interfaces.Persistence;
 using Monio.Infrastructure;
 using Monio.Infrastructure.Persistence;
+using Monio.Infrastructure.Persistence.Repositories;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -84,6 +86,7 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 
 var app = builder.Build();
 

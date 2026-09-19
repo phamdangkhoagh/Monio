@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Monio.Application.Features.Users.Login;
+using Monio.Application.Features.Users.RefreshToken;
 using Monio.Application.Features.Users.Register;
 using Monio.Application.Interfaces.Services;
 using System.Security.Claims;
@@ -54,6 +55,18 @@ namespace Monio.API.Controllers
                 UserId = userId,
                 Email = email
             });
+        }
+
+        [HttpPost("refresh-token")]
+        public async Task<IActionResult> RefreshToken(
+            RefreshTokenCommand command,
+            CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(
+                command,
+                cancellationToken);
+
+            return Ok(result);
         }
     }
 }
