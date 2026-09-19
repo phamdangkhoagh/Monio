@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Monio.Application.Features.Users.Login;
+using Monio.Application.Features.Users.Logout;
 using Monio.Application.Features.Users.RefreshToken;
 using Monio.Application.Features.Users.Register;
 using Monio.Application.Interfaces.Services;
@@ -41,6 +42,15 @@ namespace Monio.API.Controllers
             var result = await _mediator.Send(command);
 
             return Ok(result);
+        }
+
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout(
+            LogoutCommand command)
+        {
+            await _mediator.Send(command);
+
+            return NoContent();
         }
 
         [Authorize]
