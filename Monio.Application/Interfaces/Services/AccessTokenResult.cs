@@ -1,5 +1,4 @@
-﻿using Monio.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Monio.Application.Interfaces.Services
 {
-    public interface IJwtTokenGenerator
+    public class AccessTokenResult
     {
-        AccessTokenResult GenerateToken(User user);
+        public string Token { get; set; } = default!;
+        public int ExpiresIn { get; set; }
     }
 }

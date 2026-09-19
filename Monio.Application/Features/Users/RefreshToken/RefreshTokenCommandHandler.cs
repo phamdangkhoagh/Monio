@@ -68,8 +68,9 @@ namespace Monio.Application.Features.Users.RefreshToken
 
             return new AuthResponse
             {
-                AccessToken = accessToken,
-                RefreshToken = newRefreshToken.Token
+                AccessToken = accessToken.Token,
+                RefreshToken = newRefreshToken.Token,
+                ExpiresIn = accessToken.ExpiresIn
             };
         }
 

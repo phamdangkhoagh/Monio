@@ -17,12 +17,15 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         _configuration = configuration;
     }
 
-    public string GenerateToken(User user)
+    public AccessTokenResult GenerateToken(User user)
     {
         var jwtKey = _configuration["Jwt:Key"]
             ?? throw new InvalidOperationException("JWT Key is not configured.");
 
         var issuer = _configuration["Jwt:Issuer"];
+
+        var expiresIn = TimeSpan.FromHours(1);
+        var expiresAt = DateTime.UtcNow.Add(expiresIn);
 
         var claims = new List<Claim>
         {
@@ -43,6 +46,11 @@ public class JwtTokenGenerator : IJwtTokenGenerator
             expires: DateTime.UtcNow.AddHours(1),
             signingCredentials: credentials);
 
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        return new AccessTokenResult
+        {
+            Token = new JwtSecurityTokenHandler().WriteToken(token),
+            ExpiresIn = (int)expiresIn.TotalSeconds
+        };
     }
+
 }
