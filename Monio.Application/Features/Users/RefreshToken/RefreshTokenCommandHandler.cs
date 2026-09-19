@@ -6,6 +6,8 @@ using Monio.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using RefreshTokenEntity = Monio.Domain.Entities.RefreshToken;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,13 +47,36 @@ namespace Monio.Application.Features.Users.RefreshToken
                 throw new Exception("Refresh token has been revoked");
             }
 
+            await _refreshTokenRepository.RevokeAsync(
+                refreshToken,
+                cancellationToken);
+
+            var newRefreshToken = new RefreshTokenEntity
+            {
+                Id = Guid.NewGuid(),
+                UserId = refreshToken.UserId,
+                Token = GenerateRefreshToken(),
+                ExpiresAt = DateTime.UtcNow.AddDays(7),
+                CreatedAt = DateTime.UtcNow
+            };
+
+            await _refreshTokenRepository.AddAsync(
+                newRefreshToken,
+                cancellationToken);
+
             var accessToken = _jwtTokenGenerator.GenerateToken(refreshToken.User);
 
             return new AuthResponse
             {
                 AccessToken = accessToken,
-                RefreshToken = refreshToken.Token
+                RefreshToken = newRefreshToken.Token
             };
+        }
+
+        private string GenerateRefreshToken()
+        {
+            return Convert.ToBase64String(
+                RandomNumberGenerator.GetBytes(64));
         }
     }
 }

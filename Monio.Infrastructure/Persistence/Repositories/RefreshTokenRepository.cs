@@ -35,5 +35,12 @@ namespace Monio.Infrastructure.Persistence.Repositories
                    q => q.Token == token,
                    cancellationToken);
         }
+
+        public async Task RevokeAsync(RefreshToken refreshToken, CancellationToken cancellationToken)
+        {
+            refreshToken.RevokedAt = DateTime.UtcNow;
+
+            await _monioDbContext.SaveChangesAsync (cancellationToken);
+        }
     }
 }

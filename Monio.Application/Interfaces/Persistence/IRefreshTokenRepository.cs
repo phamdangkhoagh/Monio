@@ -16,5 +16,9 @@ namespace Monio.Application.Interfaces.Persistence
         Task<RefreshToken?> GetByTokenAsync (
             string token,
             CancellationToken cancellationToken);
+
+        Task RevokeAsync(
+            RefreshToken refreshToken,
+            CancellationToken cancellationToken);
     }
 }
