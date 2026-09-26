@@ -2,5 +2,5 @@
   <Project Path="Monio.API/Monio.API.csproj" />
   <Project Path="Monio.Application/Monio.Application.csproj" />
   <Project Path="Monio.Domain/Monio.Domain.csproj" />
-  <Project Path="Monio.Infrastructure/Monio.Infrastructure.csproj" />
+  <Project Path="Monio.Infrastructure/Monio.Infrastructure.csproj" />        	<Project Path="Monio.Tests/Monio.Tests.csproj" />
 </Solution>
